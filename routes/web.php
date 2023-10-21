@@ -177,16 +177,7 @@ Route::get('/admin/user', function () {
                 'no_telp' => '08321098765',
                 'tanggal_lahir' => '05/07/1990',
                 'jenis_kelamin' => 'Perempuan',
-            ],
-            [
-                'nama_depan' => 'Lia',
-                'nama_belakang' => 'Purnama',
-                'email' => 'liapurnama@gmail.com',
-                'username' => 'liapurnama',
-                'no_telp' => '08321098765',
-                'tanggal_lahir' => '05/07/1990',
-                'jenis_kelamin' => 'Perempuan',
-            ]                                                                                               
+            ],                                                                                             
         ],
     ]);
 });

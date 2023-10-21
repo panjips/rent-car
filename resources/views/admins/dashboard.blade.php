@@ -27,6 +27,8 @@
 
     <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script defer src="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css"></script>
+    <script defer src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script defer src="{{ asset('js/datatable.js') }}"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -191,7 +193,7 @@
 
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
 
-    <!-- Modal -->
+    <!-- Modal Edit Penyewaan -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -211,7 +213,7 @@
         </div>
     </div>
 
-    {{-- Modal Data Detail --}}
+    <!-- Modal Data Detail -->
     <script>
         $(document).ready(function() {
             $('tr[data-id]').click(function() {
@@ -241,6 +243,62 @@
                 $('#modal_jaminan').text(jaminan);
                 $('#modal_total_denda').text(total_denda);
 
+
+                $('#staticBackdrop').modal('show');
+            });
+        });
+    </script>
+
+    <!-- Modal Data Mobil -->
+    <script>
+        $(document).ready(function() {
+            $('tr[data-mobil]').click(function() {
+                var id = $(this).data('mobil');
+                var action = $(this).find('#action').val();
+                var merek = $(this).find('#merek').val();
+                var nama = $(this).find('#nama').val();
+                var transmisi = $(this).find('#transmisi').val();
+                var bahan_bakar = $(this).find('#bahan_bakar').val();
+                var harga_sewa = $(this).find('#harga_sewa').val();
+                var warna = $(this).find('#warna').val();
+                var status = $(this).find('#status').val();
+
+                $('#modal_action').text(action);
+                $('#modal_id_plat').attr("placeholder", id);
+                $('#modal_merek').attr("placeholder", merek);
+                $('#modal_nama').attr("placeholder", nama);
+                $('#modal_transmisi').attr("placeholder", transmisi);
+                $('#modal_bahan_bakar').attr("placeholder", bahan_bakar);
+                $('#modal_harga_sewa').attr("placeholder", harga_sewa);
+                $('#modal_warna').attr("placeholder", warna);
+                $('#modal_status_mobil').attr("placeholder", status);
+
+
+                $('#staticBackdrop').modal('show');
+            });
+        });
+    </script>
+
+    <!-- Modal Data User -->
+    <script>
+        $(document).ready(function() {
+            $('tr[data-user]').click(function() {
+                var id = $(this).data('user');
+                var nama_depan = $(this).find('#nama_depan').val();
+                var nama_belakang = $(this).find('#nama_belakang').val();
+                var email = $(this).find('#email').val();
+                var username = $(this).find('#username').val();
+                var no_telp = $(this).find('#no_telp').val();
+                var tanggal_lahir = $(this).find('#tanggal_lahir').val();
+                var jenis_kelamin = $(this).find('#jenis_kelamin').val();
+
+                $('#modal_nama_depan').attr("placeholder", nama_belakang);
+                $('#modal_nama_belakang').attr("placeholder", nama_depan);
+                $('#modal_email').attr("placeholder", email);
+                $('#modal_username').attr("placeholder", username);
+                $('#modal_no_telp').attr("placeholder", no_telp);
+                $('#modal_tanggal_lahir').attr("placeholder", tanggal_lahir);
+                $('#modal_jenis_kelamin').attr("placeholder", jenis_kelamin);
 
                 $('#staticBackdrop').modal('show');
             });
@@ -319,6 +377,133 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Mobil -->
+    <div class="modal fade" id="modalMobil" tabindex="-1" aria-labelledby="modalMobilLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalMobilLabel"><span id="modal_action"></span> Mobil</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="post" id="form" class="">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="modal_id_plat" class="fw-bold fs-6 form-label">Nomor Plat</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_id_plat" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_merek" class="fw-bold fs-6 form-label">Merek</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_merek" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_nama" class="fw-bold fs-6 form-label">Nama</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_nama" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label for="modal_transmisi" class="fw-bold fs-6 form-label">Nomor Plat</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_transmisi" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_bahan_bakar" class="fw-bold fs-6 form-label">Bahan Bakar</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_bahan_bakar" placeholder="">
+                            </div>
+                            <div class="col-5">
+                                <label for="modal_warna" class="fw-bold fs-6 form-label">Warna</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_warna" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label for="modal_harga_sewa" class="fw-bold fs-6 form-label">Harga Sewa</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_harga_sewa" placeholder="">
+                            </div>
+                            <div class="col-6">
+                                <label for="modal_status_mobil" class="fw-bold fs-6 form-label">Status</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_status_mobil" placeholder="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="modalMobilLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalMobilLabel">Edit User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="post" id="form" class="">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="modal_nama_depan" class="fw-bold fs-6 form-label">Nama Depan</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_nama_depan" placeholder="">
+                            </div>
+                            <div class="col-6">
+                                <label for="modal_nama_belakang" class="fw-bold fs-6 form-label">Nama Belakang</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_nama_belakang" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-4">
+                                <label for="modal_email" class="fw-bold fs-6 form-label">Email</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_email" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_username" class="fw-bold fs-6 form-label">Username</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_username" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_no_telp" class="fw-bold fs-6 form-label">Nomor Telepon</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_no_telp" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label for="modal_tanggal_lahir" class="fw-bold fs-6 form-label">Tanggal Lahir</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tanggal_lahir" placeholder="">
+                            </div>
+                            <div class="col-6">
+                                <label for="modal_jenis_kelamin" class="fw-bold fs-6 form-label">Jenis Kelamin</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_jenis_kelamin" placeholder="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>

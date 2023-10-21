@@ -22,28 +22,39 @@
                             </thead>
                             <tbody>
                                 @foreach ($user as $item)
-                                    <tr>
-                                        <td class="align-middle">{{ $item['nama_depan'] . ' ' . $item['nama_belakang'] }}
-                                        </td>
-                                        <td class="align-middle">{{ $item['email'] }}</td>
-                                        <td class="align-middle">{{ $item['username'] }}</td>
-                                        <td class="align-middle">{{ $item['no_telp'] }}</td>
-                                        <td class="align-middle">{{ $item['tanggal_lahir'] }}</td>
-                                        <td class="align-middle">
-                                            @if ($item['jenis_kelamin'] == 'Perempuan')
-                                                <span class="badge text-bg-success ">{{ $item['jenis_kelamin'] }}</span>
-                                            @else
-                                                <span class="badge text-bg-primary">{{ $item['jenis_kelamin'] }}</span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-outline-primary">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-outline-danger">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
+                                    <tr data-user="">
+                                        <form id="form">
+                                            <td class="align-middle">
+                                                {{ $item['nama_depan'] . ' ' . $item['nama_belakang'] }}
+                                            </td>
+                                            <td class="align-middle">{{ $item['email'] }}</td>
+                                            <td class="align-middle">{{ $item['username'] }}</td>
+                                            <td class="align-middle">{{ $item['no_telp'] }}</td>
+                                            <td class="align-middle">{{ $item['tanggal_lahir'] }}</td>
+                                            <td class="align-middle">
+                                                @if ($item['jenis_kelamin'] == 'Perempuan')
+                                                    <span class="badge text-bg-success ">{{ $item['jenis_kelamin'] }}</span>
+                                                @else
+                                                    <span class="badge text-bg-primary">{{ $item['jenis_kelamin'] }}</span>
+                                                @endif
+                                            </td>
+                                            <td class="align-middle">
+                                                <button class="btn btn-outline-primary" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEditUser">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                            <input type="hidden" id="nama_depan" value="{{ $item['nama_depan'] }}">
+                                            <input type="hidden" id="nama_belakang" value="{{ $item['nama_belakang'] }}">
+                                            <input type="hidden" id="email" value="{{ $item['email'] }}">
+                                            <input type="hidden" id="username" value="{{ $item['username'] }}">
+                                            <input type="hidden" id="no_telp" value="{{ $item['no_telp'] }}">
+                                            <input type="hidden" id="tanggal_lahir" value="{{ $item['tanggal_lahir'] }}">
+                                            <input type="hidden" id="jenis_kelamin" value="{{ $item['jenis_kelamin'] }}">
+                                        </form>
                                     </tr>
                                 @endforeach
                             </tbody>
