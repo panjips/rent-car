@@ -84,7 +84,7 @@
             <a href="#" class="brand-link">
                 <img src=" {{ asset('img/logo.png') }}" alt="VR Logo" class="brand-image img-circle"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Vehicle Rental</span>
+                <span class="brand-text font-weight-light">Rent n Ride</span>
             </a>
 
             <div class="sidebar">
