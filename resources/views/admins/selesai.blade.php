@@ -47,7 +47,8 @@
                                                 </button>
                                             </td>
                                             <td class="align-middle">
-                                                <button class="btn btn-outline-danger">
+                                                <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#modalDelete">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>

@@ -43,7 +43,8 @@
                                                     data-bs-toggle="modal" data-bs-target="#modalEditUser">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </button>
-                                                <button class="btn btn-outline-danger">
+                                                <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#modalDelete">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>

@@ -193,25 +193,6 @@
 
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
 
-    <!-- Modal Edit Penyewaan -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Status</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah yakin mengubah status penyewaan?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal Data Detail -->
     <script>
@@ -305,6 +286,27 @@
         });
     </script>
 
+    <!-- Modal Edit Penyewaan -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Status</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah yakin mengubah status penyewaan?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="toastEditPenyewaanBtn" data-bs-dismiss="modal" type="button"
+                        class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Detail -->
     <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -382,7 +384,7 @@
         </div>
     </div>
 
-    <!-- Modal Mobil -->
+    <!-- Modal Edit Mobil -->
     <div class="modal fade" id="modalMobil" tabindex="-1" aria-labelledby="modalMobilLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -442,13 +444,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    <button id="toastEditMobilBtn" type="button" class="btn btn-primary"
+                        data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <!-- Modal Edit User -->
     <div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="modalMobilLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -503,8 +506,128 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="toastEditUserBtn" type="button" class="btn btn-primary"
+                        data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Mobil -->
+    <div class="modal fade" id="modalTambahMobil" tabindex="-1" aria-labelledby="modalMobilLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalMobilLabel">Tambah Mobil</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="post" id="form" class="">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="modal_tambah_id_plat" class="fw-bold fs-6 form-label">Nomor Plat</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_id_plat" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_tambah_merek" class="fw-bold fs-6 form-label">Merek</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_merek" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_tambah_nama" class="fw-bold fs-6 form-label">Nama</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_nama" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label for="modal_tambah_transmisi" class="fw-bold fs-6 form-label">Nomor Plat</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_transmisi" placeholder="">
+                            </div>
+                            <div class="col-4">
+                                <label for="modal_tambah_bahan_bakar" class="fw-bold fs-6 form-label">Bahan
+                                    Bakar</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_bahan_bakar" placeholder="">
+                            </div>
+                            <div class="col-5">
+                                <label for="modal_tambah_warna" class="fw-bold fs-6 form-label">Warna</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_warna" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label for="modal_tambah_harga_sewa" class="fw-bold fs-6 form-label">Harga
+                                    Sewa</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_harga_sewa" placeholder="">
+                            </div>
+                            <div class="col-6">
+                                <label for="modal_tambah_status_mobil" class="fw-bold fs-6 form-label">Status</label>
+                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                    id="modal_tambah_status_mobil" placeholder="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteLabel">Hapus Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah yakin menghapus data?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="toastDeleteBtn" type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Delete -->
+    <script src="{{ asset('js/toast.js') }}"></script>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="toastDelete" class="toast align-items-center text-bg-success border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Success delete data!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Edit -->
+    <script src="{{ asset('js/toast.js') }}"></script>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="toastEdit" class="toast align-items-center text-bg-success border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Success edit data!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
         </div>
     </div>

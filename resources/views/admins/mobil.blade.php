@@ -7,7 +7,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header ">
-                        <button type="button" class="btn btn-success float-end">Tambah</button>
+                        <button type="button" class="btn btn-success float-end" type="button" data-bs-toggle="modal"
+                            data-bs-target="#modalTambahMobil">Tambah</button>
                     </div>
                     <div class="card-body">
                         <table id="example" class="table table-bordered table-hover">
@@ -49,7 +50,8 @@
                                                     data-bs-toggle="modal" data-bs-target="#modalMobil">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </button>
-                                                <button class="btn btn-outline-danger">
+                                                <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#modalDelete">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
