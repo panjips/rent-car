@@ -27,7 +27,7 @@
 
     <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script defer src="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css"></script>
+    <link defer src="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
     <script defer src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script defer src="{{ asset('js/datatable.js') }}"></script>
     <style>
@@ -99,7 +99,7 @@
 
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                        data-accordion="true">
                         <li class="nav-item">
                             <a href="{{ url('admin') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
