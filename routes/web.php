@@ -21,6 +21,10 @@ Route::get('/admin', function () {
     return view('admins/index');
 });
 
+Route::get('/admin/profile', function () {
+    return view('admins/profile');
+});
+
 Route::get('/admin/mobil', function () {
     return view('admins/mobil', [
         'mobil'=> [
