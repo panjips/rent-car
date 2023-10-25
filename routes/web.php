@@ -14,20 +14,142 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.home');
+    return view('home/homepage',[
+        'testimoni'=> [
+            [
+                'nama' => 'Maria Samantha',
+                'review' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.',
+                'foto' => 'https://akcdn.detik.net.id/visual/2020/08/11/patrick-star-di-spongebob-squarepants_169.jpeg?w=650',
+            ],           
+            
+            [
+                'nama' => 'Maria Samantha',
+                'review' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.',
+                'foto' => 'https://akcdn.detik.net.id/visual/2020/08/11/patrick-star-di-spongebob-squarepants_169.jpeg?w=650',
+            ],     
+
+            [
+                'nama' => 'Maria Samantha',
+                'review' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.',
+                'foto' => 'https://akcdn.detik.net.id/visual/2020/08/11/patrick-star-di-spongebob-squarepants_169.jpeg?w=650',
+            ],     
+        ],
+    ]);
+});
+
+Route::get('/catalog', function () {
+    return view('home/catalog', [
+        'catalog'=> [
+            [
+                'jenis' => 'Alphard',
+                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
+                'gambar' => '',
+                'harga_sewa' => 350000,
+            ],
+            
+            [
+                'jenis' => 'Alphard',
+                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
+                'gambar' => '',
+                'harga_sewa' => 350000,
+            ],
+            
+            [
+                'jenis' => 'Alphard',
+                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
+                'gambar' => '',
+                'harga_sewa' => 350000,
+            ],
+            
+            [
+                'jenis' => 'Alphard',
+                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
+                'gambar' => '',
+                'harga_sewa' => 350000,
+            ],
+            
+            [
+                'jenis' => 'Alphard',
+                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
+                'gambar' => '',
+                'harga_sewa' => 350000,
+            ],
+            
+            [
+                'jenis' => 'Alphard',
+                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
+                'gambar' => '',
+                'harga_sewa' => 350000,
+            ],
+        ],
+    ]);
+});
+
+Route::get('/detail', function () {
+    return view('home/detailCatalog', [
+        'review'=> [
+            [
+                'nama' => 'Alex Stanton',
+                'tanggal' => '20 July 2023',
+                'gambar' => '',
+                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            ],
+
+            [
+                'nama' => 'Alex Sutanto',
+                'tanggal' => '21 July 2023',
+                'gambar' => '',
+                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            ],
+
+            [
+                'nama' => 'Alex Suharyo',
+                'tanggal' => '22 July 2023',
+                'gambar' => '',
+                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            ],
+
+            [
+                'nama' => 'Alex Sukirman',
+                'tanggal' => '23 July 2023',
+                'gambar' => '',
+                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            ],
+
+            [
+                'nama' => 'Alex Sukijan',
+                'tanggal' => '24 July 2023',
+                'gambar' => '',
+                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            ],
+
+            [
+                'nama' => 'Alex Supriman',
+                'tanggal' => '25 July 2023',
+                'gambar' => '',
+                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            ],
+        ],
+    ]);
 });
 
 Route::get('/login', function () {
     return view('auth.login');
 });
+
+Route::post('/login', function (Illuminate\Http\Request $request) {
+    $username = $request->input('username');
+    $password = $request->input('password');
+
+    if ($username == 'admin' || $password == 'admin') {
+        return redirect('admin');
+    }else{
+        return redirect('user');
+    }
+});
+
 Route::get('/register', function () {
     return view('auth.register');
-});
-Route::get('/catalog', function () {
-    return view('pages.catalog');
-});
-Route::get('/catalog/detail', function () {
-    return view('pages.detail');
 });
 
 Route::get('/user', function () {
@@ -46,7 +168,7 @@ Route::get('/user/riwayat-penyewaan', function() {
             'tanggal_mulai_sewa' => '27-10-2023',
             'tanggal_selesai_sewa' => '03-11-2023',
             'nama_mobil' => 'Avanza',
-            'status' => true,
+            'status' => true,   
             'total_harga' => '1000000'
         ],
         [

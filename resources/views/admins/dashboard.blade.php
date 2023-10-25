@@ -13,6 +13,7 @@
             User
         @endif Vehicle Rental
     </title>
+    <title>Admin Vehicle Rental</title>
     </title>
 
     <link rel="stylesheet"
@@ -34,7 +35,7 @@
 
     <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <link defer src="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+    <script defer src="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css"></script>
     <script defer src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script defer src="{{ asset('js/datatable.js') }}"></script>
     <style>
@@ -647,6 +648,112 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Tambah Review -->
+    <div class="modal fade" id="modalHistory" tabindex="-1" aria-labelledby="modalHistoryLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalMobilLabel">Tambah Review</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="post" id="form" class="">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="star" class="fw-bold fs-6 form-label">Review Bintang</label>
+                                <input type="number" max="5" min="1"
+                                    class="no_plat form-control clear" name="star" id="star" placeholder="">
+                            </div>
+                            <div class="col-12">
+                                <label for="description_review" class="fw-bold fs-6 form-label">Deskripsi
+                                    review</label>
+                                <textarea rows="8" type="text" class="no_plat form-control clear" name="description_review"
+                                    id="description_review" placeholder=""></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update Profile -->
+    <div class="modal fade" id="modalUpdateProfile" tabindex="-1" aria-labelledby="modalUpdateProfileLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <div class="w-100 mt-2 mx-auto my-auto text-white text-center">
+                        <h3>Ubah data user</h3>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="p-4 mx-5">
+                        <div class="mb-3 row">
+                            <div class="col-6">
+                                <label for="nama-depan" class="form-label" style="color: grey">Nama Depan</label>
+                                <input type="text" name="nama-depan" class="form-control" id="nama-depan"
+                                    style="color: grey">
+                            </div>
+                            <div class="col-6">
+                                <label for="nama-akhir" class="form-label" style="color: grey">Nama Akhir</label>
+                                <input type="text" name="nama-akhir" class="form-control" id="nama-akhir"
+                                    style="color: grey">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-4">
+                                <label for="jenis-kelamin" class="form-label" style="color: grey">Jenis
+                                    Kelamin</label>
+                                <input type="text" name="jenis-kelamin" class="form-control" id="jenis-kelamin"
+                                    style="color: grey">
+                            </div>
+                            <div class="col-8">
+                                <label for="tanggal-lahir" class="form-label" style="color: grey">Tanggal
+                                    Lahir</label>
+                                <input type="date" name="tanggal-lahir" class="form-control" id="tanggal-lahir"
+                                    style="color: grey">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label" style="color: grey">Email</label>
+                            <input type="email" name="email" class="form-control" id="email"
+                                aria-describedby="emailHelp" style="color: grey">
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-6">
+                                <label for="username" class="form-label" style="color: grey">Username</label>
+                                <input type="text" name="username" class="form-control" id="username"
+                                    style="color: grey">
+                            </div>
+                            <div class="col-6">
+                                <label for="password" class="form-label" style="color: grey">Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        style="color: grey">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="button" id="showPasswordButton">
+                                            <i class="fa fa-eye" id="icon" style="color: grey"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="mt-5 btn w-100 text-white rounded"
+                            style="background-color: #8925fa; font-weight: 600">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal Delete -->
     <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">

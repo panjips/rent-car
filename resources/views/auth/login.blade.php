@@ -40,13 +40,14 @@
                     </div>
 
                 </div>
-                <form class="p-4 mx-5">
+                <form class="p-4 mx-5" action="{{ url('login') }}" method="POST">
+                    @csrf
                     <div class="mb-3 text-center">
                         <h3 class="font-weight-bolder">Login</h3>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label" style="color: grey">Username</label>
-                        <input type="email" id="email" name="email" class="form-control"
+                        <label for="username" class="form-label" style="color: grey">Username</label>
+                        <input type="text" id="username" name="username" class="form-control"
                             aria-describedby="emailHelp" style="color: grey">
                     </div>
                     <div class="mb-3">
@@ -69,8 +70,7 @@
                     <p class="text-center text-dark mt-3 mb-0" style="font-weight: 400">Doesn't have any account?<span> <a
                                 href="{{ url('/register') }}" class="text-decoration-none"
                                 style="color: #8925fa"><b>Register
-                                    Now</b> </span></a>
-                    </p>
+                                    Now</b> </span></a> </p>
                 </form>
             </div>
         </div>

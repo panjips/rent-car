@@ -10,7 +10,7 @@
                         <h3>150</h3>
                         <p>Menunggu Konfirmasi</p>
                     </div>
-                    <a href="{{ url('admin/menunggu-konfirmasi') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('admin/dashboard/menunggu-konfirmasi') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                         <h3>53</h3>
                         <p>Penyewaan Berhasil</p>
                     </div>
-                    <a href="{{ url('admin/selesai') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('admin/dashboard/selesai') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         <h3>44</h3>
                         <p>Akun Terdaftar</p>
                     </div>
-                    <a href="{{ url('admin/user') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('admin/dashboard/user') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         <h3>65</h3>
                         <p>Penyewaan Bermasalah</p>
                     </div>
-                    <a href="{{ url('admin/bermasalah') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('admin/dashboard/bermasalah') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
