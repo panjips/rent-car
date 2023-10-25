@@ -2,6 +2,7 @@
 
 @section('content')
     <section class="content p-4">
+        <h1>Dashboard</h1>
         <div class="row ">
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
