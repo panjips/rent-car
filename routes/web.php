@@ -18,11 +18,11 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
-    return view('admins/index');
+    return view('admins/index-admin');
 });
 
 Route::get('/admin/profile', function () {
-    return view('admins/profile');
+    return view('admins/profile-admin');
 });
 
 Route::get('/admin/mobil', function () {
