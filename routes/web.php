@@ -14,19 +14,72 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
 
-Route::get('/admin', function () {
-    return view('admins/index-admin');
+Route::get('/login', function () {
+    return view('auth.login');
+});
+Route::get('/register', function () {
+    return view('auth.register');
+});
+Route::get('/catalog', function () {
+    return view('pages.catalog');
+});
+Route::get('/catalog/detail', function () {
+    return view('pages.detail');
 });
 
-Route::get('/admin/profile', function () {
-    return view('admins/profile-admin');
+Route::get('/admin/dashboard', function () {
+    return view('admins.index-admin');
 });
 
-Route::get('/admin/mobil', function () {
-    return view('admins/mobil', [
+Route::get('/dashboard', function () {
+    return view('admins.index-user');
+});
+
+Route::get('/dashboard/profile', function () {
+    return view('admins.profile');
+});
+
+Route::get('/dashboard/riwayat-penyewaan', function() {
+    $histories = [
+        [
+            'id' => '1',
+            'id_sewa' => 'AA0324',
+            'tanggal_mulai_sewa' => '27-10-2023',
+            'tanggal_selesai_sewa' => '03-11-2023',
+            'nama_mobil' => 'Avanza',
+            'status' => true,
+            'total_harga' => '1000000'
+        ],
+        [
+            'id' => '2',
+            'id_sewa' => 'AA0276',
+            'tanggal_mulai_sewa' => '07-09-2023',
+            'tanggal_selesai_sewa' => '10-09-2023',
+            'nama_mobil' => 'Alphard',
+            'status' => false,
+            'total_harga' => '1540000'
+        ],
+        [
+            'id' => '3',
+            'id_sewa' => 'AA0245',
+            'tanggal_mulai_sewa' => '13-07-2023',
+            'tanggal_selesai_sewa' => '19-07-2023',
+            'nama_mobil' => 'Xenia',
+            'status' => false,
+            'total_harga' => '785000'
+        ]
+    ];
+
+    return view('admins.riwayat-penyewaan',[
+        'histories' => $histories,
+    ]);
+});
+
+Route::get('/admin/dashboard/mobil', function () {
+    return view('admins.mobil', [
         'mobil'=> [
             [
                 'id'=> 'AB 1234 C',
@@ -98,8 +151,8 @@ Route::get('/admin/mobil', function () {
             ]);
 });
 
-Route::get('/admin/user', function () {
-    return view('admins/user', [
+Route::get('/admin/dashboard/user', function () {
+    return view('admins.user', [
         'user'=> [
             [
                 'nama_depan'=> 'Simen',
@@ -181,13 +234,13 @@ Route::get('/admin/user', function () {
                 'no_telp' => '08321098765',
                 'tanggal_lahir' => '05/07/1990',
                 'jenis_kelamin' => 'Perempuan',
-            ],                                                                                             
+            ],
         ],
     ]);
 });
 
-Route::get('/admin/menunggu-konfirmasi', function () {
-    return view('admins/menungguKonfirmasi', [
+Route::get('/admin/dashboard/menunggu-konfirmasi', function () {
+    return view('admins.menungguKonfirmasi', [
         'penyewaan'=> [
             [
                 'id' => '20230001',
@@ -263,8 +316,8 @@ Route::get('/admin/menunggu-konfirmasi', function () {
     ]);
 });
 
-Route::get('/admin/berlangsung', function () {
-    return view('admins/berlangsung', [
+Route::get('/admin/dashboard/berlangsung', function () {
+    return view('admins.berlangsung', [
         'penyewaan'=> [
             [
                 'id' => '20230012',
@@ -335,13 +388,13 @@ Route::get('/admin/berlangsung', function () {
                 'titik_jemput' => 'Condongcatur',
                 'jaminan' => 'SIM',
                 'total_denda' => 0,
-            ],                      
+            ],
         ],
     ]);
 });
 
-Route::get('/admin/bermasalah', function () {
-    return view('admins/bermasalah', [
+Route::get('/admin/dashboard/bermasalah', function () {
+    return view('admins.bermasalah', [
         'penyewaan'=> [
             [
                 'id' => '20230019',
@@ -356,13 +409,13 @@ Route::get('/admin/bermasalah', function () {
                 'titik_jemput' => 'Condongcatur',
                 'jaminan' => 'SIM',
                 'total_denda' => 2300000,
-            ],               
+            ],
         ],
     ]);
 });
 
-Route::get('/admin/selesai', function () {
-    return view('admins/selesai', [
+Route::get('/admin/dashboard/selesai', function () {
+    return view('admins.selesai', [
         'penyewaan'=> [
             [
                 'id' => '20230069',
@@ -377,7 +430,7 @@ Route::get('/admin/selesai', function () {
                 'titik_jemput' => 'Condongcatur',
                 'jaminan' => 'SIM',
                 'total_denda' => 0,
-            ],               
+            ],
         ],
     ]);
 });
