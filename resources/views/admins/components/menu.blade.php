@@ -1,6 +1,7 @@
 @if (request()->is('admin') || request()->is('admin/*'))
     <li class="nav-item">
-        <a href="{{ url('admin/') }}" class="nav-link {{ request()->is('admin/') ? 'active' : '' }}">
+        <a href="{{ url('admin/' . Auth::guard('admin')->id()) }}"
+            class="nav-link {{ request()->is('admin/') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p> Dashboard</p>
         </a>
@@ -42,7 +43,8 @@
         </ul>
     </li>
     <li class="nav-item">
-        <a href="{{ url('admin/mobil') }}" class="nav-link {{ request()->is('admin/mobil') ? 'active' : '' }}">
+        <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/mobil') }}"
+            class="nav-link {{ request()->is('admin/mobil') ? 'active' : '' }}">
             <i class="nav-icon fa-solid fa-car-rear"></i>
             <p>
                 Mobil

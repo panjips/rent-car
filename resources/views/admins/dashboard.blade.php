@@ -104,7 +104,8 @@
                     </div>
                     @if (request()->is('admin/*') || request()->is('admin'))
                         <div class="info">
-                            <a href="{{ url('admin/profile') }}" class="d-block text-decoration-none">Alex Gilbert</a>
+                            <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/profile') }}"
+                                class="d-block text-decoration-none">{{ Auth::guard('admin')->user()->nama_depan . ' ' . Auth::guard('admin')->user()->nama_akhir }}</a>
                         </div>
                     @endif
                     @if (request()->is('user') || request()->is('user/*'))
@@ -486,39 +487,50 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="post" id="form" class="">
+                    <form action="{{ url('/admin/' . Auth::guard('admin')->id() . '/mobil/create') }}" id="formMobil"
+                        class="">
+                        @csrf
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <label for="modal_tambah_id_plat" class="fw-bold fs-6 form-label">Nomor Plat</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
-                                    id="modal_tambah_id_plat" placeholder="">
+                                <input type="text"
+                                    class="form form-control clear @error('id') is-invalid @enderror" name="id"
+                                    id="modal_tambah_id_plat" placeholder="Masukan Nomor Plat">
+                                @error('id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <label for="modal_tambah_merek" class="fw-bold fs-6 form-label">Merek</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                <input type="text" class="form form-control clear" name="merek"
                                     id="modal_tambah_merek" placeholder="">
                             </div>
-                            <div class="col-4">
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
                                 <label for="modal_tambah_nama" class="fw-bold fs-6 form-label">Nama</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                <input type="text" class="form form-control clear" name="nama"
                                     id="modal_tambah_nama" placeholder="">
+                            </div>
+                            <div class="col-6">
+                                <label for="modal_tambah_transmisi" class="fw-bold fs-6 form-label">Transmisi</label>
+                                <input type="text" class="form form-control clear" name="transmisi"
+                                    id="modal_tambah_transmisi" placeholder="">
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-3">
-                                <label for="modal_tambah_transmisi" class="fw-bold fs-6 form-label">Nomor Plat</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
-                                    id="modal_tambah_transmisi" placeholder="">
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <label for="modal_tambah_bahan_bakar" class="fw-bold fs-6 form-label">Bahan
                                     Bakar</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                <input type="text" class="form form-control clear" name="bahan_bakar"
                                     id="modal_tambah_bahan_bakar" placeholder="">
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <label for="modal_tambah_warna" class="fw-bold fs-6 form-label">Warna</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                <input type="text" class="form form-control clear" name="warna"
                                     id="modal_tambah_warna" placeholder="">
                             </div>
                         </div>
@@ -526,20 +538,31 @@
                             <div class="col-6">
                                 <label for="modal_tambah_harga_sewa" class="fw-bold fs-6 form-label">Harga
                                     Sewa</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
+                                <input type="text" class="form form-control clear" name="harga_sewa"
                                     id="modal_tambah_harga_sewa" placeholder="">
                             </div>
                             <div class="col-6">
                                 <label for="modal_tambah_status_mobil" class="fw-bold fs-6 form-label">Status</label>
-                                <input type="text" class="no_plat form-control clear" name="no_plat"
-                                    id="modal_tambah_status_mobil" placeholder="">
+                                <select class="form-select" id="modal_tambah_status_mobil" name="status">
+                                    <option>Pilih Status</option>
+                                    <option value="Tersedia">Tersedia</option>
+                                    <option value="Tersewa">Tersewa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                <label for="modal_tambah_harga_sewa" class="fw-bold fs-6 form-label">Gambar
+                                    Mobil</label>
+                                <input type="file" class="form form-control clear" name="gambar"
+                                    id="modal_tambah_harga_sewa" placeholder="">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    <button type="submit" form="formMobil" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -750,42 +773,6 @@
                             style="background-color: #8925fa; font-weight: 600">Simpan</button>
                     </form>
                 </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal Delete -->
-    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDeleteLabel">Hapus Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah yakin menghapus data?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="toastDeleteBtn" type="button" class="btn btn-danger"
-                        data-bs-dismiss="modal">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Delete -->
-    <script src="{{ asset('js/toast.js') }}"></script>
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="toastDelete" class="toast align-items-center text-bg-success border-0" role="alert"
-            aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    Success delete data!
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                    aria-label="Close"></button>
             </div>
         </div>
     </div>

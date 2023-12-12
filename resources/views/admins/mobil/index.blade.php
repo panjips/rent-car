@@ -7,8 +7,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header ">
-                        <button type="button" class="btn btn-success float-end" type="button" data-bs-toggle="modal"
-                            data-bs-target="#modalTambahMobil">Tambah</button>
+                        {{-- <button type="button" class="btn btn-success float-end" type="button" data-bs-toggle="modal"
+                            data-bs-target="#modalTambahMobil">Tambah</button> --}}
+                        <a class="btn btn-success float-end" type="button"
+                            href="{{ url('admin/' . Auth::guard('admin')->id() . '/mobil/create') }}">Tambah</a>
                     </div>
                     <div class="card-body">
                         <table id="example" class="table table-bordered table-hover">
@@ -31,7 +33,8 @@
                                     <tr data-mobil="{{ $item['id'] }}">
                                         <form id="form">
                                             <td class="align-middle">{{ $item['id'] }}</td>
-                                            <td><img src="{{ asset('img/alphard.png') }}" alt="mobil"></td>
+                                            <td><img src="{{ asset('storage/' . $item['gambar']) }}"
+                                                    style="width: 182px; height: 107px;" alt="mobil"></td>
                                             <td class="align-middle">{{ $item['merek'] }}</td>
                                             <td class="align-middle">{{ $item['nama'] }}</td>
                                             <td class="align-middle">{{ $item['transmisi'] }}</td>
@@ -46,26 +49,46 @@
                                                 @endif
                                             </td>
                                             <td class="align-middle">
-                                                <button class="btn btn-outline-primary" type="button"
-                                                    data-bs-toggle="modal" data-bs-target="#modalMobil">
+                                                <a class="btn btn-outline-primary"
+                                                    href="{{ url('admin/' . Auth::guard('admin')->id() . '/mobil/update/' . $item['id']) }}">
                                                     <i class="fa-regular fa-pen-to-square"></i>
-                                                </button>
+                                                </a>
+
                                                 <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modalDelete">
+                                                    data-bs-target="#modalDelete{{ $loop->iteration }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
-                                            <input type="hidden" id="action" value="Edit">
-                                            <input type="hidden" id="id" value="{{ $item['id'] }}">
-                                            <input type="hidden" id="merek" value="{{ $item['merek'] }}">
-                                            <input type="hidden" id="nama" value="{{ $item['nama'] }}">
-                                            <input type="hidden" id="transmisi" value="{{ $item['transmisi'] }}">
-                                            <input type="hidden" id="bahan_bakar" value="{{ $item['bahan_bakar'] }}">
-                                            <input type="hidden" id="harga_sewa" value="{{ $item['harga_sewa'] }}">
-                                            <input type="hidden" id="warna" value="{{ $item['warna'] }}">
-                                            <input type="hidden" id="status" value="{{ $item['status'] }}">
                                         </form>
                                     </tr>
+                                    <!-- Modal Delete -->
+                                    <div class="modal fade" id="modalDelete{{ $loop->iteration }}" tabindex="-1"
+                                        aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalDeleteLabel">Hapus Data</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah yakin menghapus data {{ $item['id'] }}?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <form
+                                                        action="{{ url('admin/' . Auth::guard('admin')->id() . '/mobil/delete/' . $item['id']) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button id="toastDeleteBtn" type="submit"
+                                                            class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
