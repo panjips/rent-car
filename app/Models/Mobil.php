@@ -24,4 +24,10 @@ class Mobil extends Model
         'warna',
         'status',
     ];
+
+
+    public function Penyewaan()
+    {
+        return $this->hasMany(Penyewaan::class);
+    }
 }

@@ -1,7 +1,7 @@
 @extends('admins/dashboard')
 @section('content')
     <section class="content p-4">
-        <h1>Data Penyewaan Bermasalah</h1>
+        <h1>Data Penyewaan Menunggu Konfirmasi</h1>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -15,64 +15,67 @@
                                     <th>Nama Penyewaan</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
-                                    <th>Tanggal Pengembalian</th>
                                     <th>Nama Mobil</th>
-                                    <th>Total Denda</th>
+                                    <th>Total Harga</th>
                                     <th>Status</th>
                                     <th>Detail</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($penyewaan as $item)
                                     <tr data-id="{{ $item['id'] }}">
                                         <form id="form">
-                                            <td class="align-middle">{{ $item['id'] }}
+                                            <td class="align-middle">{{ $item['id_sewa'] }}</td>
+                                            <td class="align-middle">
+                                                {{ $item->User->first_name . ' ' . $item->User->last_name }}
                                             </td>
-                                            <td class="align-middle">{{ $item['nama_penyewa'] }}</td>
-                                            <td class="align-middle">{{ $item['tgl_mulai_sewa'] }}</td>
-                                            <td class="align-middle">{{ $item['tgl_selesai_sewa'] }}</td>
-                                            <td class="align-middle">{{ $item['tgl_pengembalian_sewa'] }}</td>
-                                            <td class="align-middle">{{ $item['nama_mobil'] }}</td>
-                                            <td class="align-middle text-red">{{ $item['total_denda'] }}</td>
+                                            <td class="align-middle">{{ $item['tanggal_mulai'] }}</td>
+                                            <td class="align-middle">{{ $item['tanggal_selesai'] }}</td>
+                                            <td class="align-middle">{{ $item->Mobil->nama }}</td>
+                                            <td class="align-middle">{{ $item['total_harga'] }}</td>
                                             <td class="align-middle">
                                                 <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button"
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                                         aria-expanded="false">
                                                         {{ $item['status'] }}
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                         <li>
-                                                            <button type="button" class="btn w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#exampleModal">
-                                                                Selesai
-                                                            </button>
+                                                            <a
+                                                                href="{{ route('updateStatus', [Auth::guard('admin')->user()->id_admin, 'Ditolak', $item['id_sewa']]) }}">
+                                                                <button type="button" class="btn w-100">
+                                                                    Ditolak
+                                                                </button>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a
+                                                                href="{{ route('updateStatus', [Auth::guard('admin')->user()->id_admin, 'Berlangsung', $item['id_sewa']]) }}">
+                                                                <button type="button" class="btn w-100">
+                                                                    Berlangsung
+                                                                </button>
+                                                            </a>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success"data-bs-toggle="modal"
-                                                    data-bs-target="#modalInfo">
+                                                <button type="button" class="btn btn-outline-success"
+                                                    data-bs-toggle="modal" data-bs-target="#modalInfo">
                                                     <i class="fa-solid fa-circle-info"></i>
                                                 </button>
                                             </td>
-                                            <td class="align-middle">
-                                                <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modalDelete">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </td>
-                                            <input type="hidden" id="id" value="{{ $item['id'] }}">
-                                            <input type="hidden" id="nama_penyewa" value="{{ $item['nama_penyewa'] }}">
-                                            <input type="hidden" id="tgl_mulai_sewa"
-                                                value="{{ $item['tgl_mulai_sewa'] }}">
+
+                                            <input type="hidden" id="id" value="{{ $item['id_sewa'] }}">
+                                            <input type="hidden" id="nama_penyewa"
+                                                value="{{ $item->User->first_name . ' ' . $item->User->last_name }}">
+                                            <input type="hidden" id="tgl_mulai_sewa" value="{{ $item['tanggal_mulai'] }}">
                                             <input type="hidden" id="tgl_selesai_sewa"
-                                                value="{{ $item['tgl_selesai_sewa'] }}">
+                                                value="{{ $item['tanggal_selesai'] }}">
                                             <input type="hidden" id="tgl_pengembalian_sewa"
-                                                value="{{ $item['tgl_pengembalian_sewa'] }}">
-                                            <input type="hidden" id="nama_mobil" value="{{ $item['nama_mobil'] }}">
+                                                value="{{ $item['tanggal_pengembalian'] }}">
+                                            <input type="hidden" id="nama_mobil" value="{{ $item->Mobil->nama }}">
                                             <input type="hidden" id="status" value="{{ $item['status'] }}">
                                             <input type="hidden" id="total_harga" value="{{ $item['total_harga'] }}">
                                             <input type="hidden" id="titik_antar" value="{{ $item['titik_antar'] }}">

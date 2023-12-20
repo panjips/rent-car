@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="col-sm d-flex justify-content-end">
                                             <a class="btn btn-primary mt-2 align-items-center d-flex" href="#"
-                                                data-toggle="modal" data-target="#sewaSekarangModal"
+                                                data-toggle="modal" data-target="#sewaSekarangModal" id="sewaMobil"
                                                 style="background-color: #3D8BFD; border-color: #3D8BFD; font-family: Poppins Medium;">
                                                 Sewa Sekarang
                                             </a>
@@ -83,6 +83,12 @@
                         </div>
                     </div>
 
+                    @if (session('error'))
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => document.getElementById('sewaMobil').click());
+                        </script>
+                    @endif
+
                     <div class="row">
                         <div class="col-md animate__animated animate__fadeInUp">
                             <div class="card card-testimonial border mb-3 review-card " style="background-color: #FFFFFF;">
@@ -91,11 +97,7 @@
                                         Reviews
                                     </p>
 
-                                    @php
-                                        $displayedReviews = array_slice($review, 0, 2); // Display the first 3 reviews initially
-                                    @endphp
-
-                                    @foreach ($displayedReviews as $item)
+                                    @foreach ($review as $item)
                                         <div class="row mb-4 displayed-review">
                                             <div class="col-sm">
                                                 <img class="card-img-review" src="{{ asset('img/foto_patrick.jpeg') }}"
@@ -103,25 +105,35 @@
                                             </div>
                                             <div class="col-lg-11 mt-0">
                                                 <div class="row">
-                                                    <div class="col-sm">
+                                                    <div class="col-sm ">
                                                         <p class="card-title card-review-title p-0"
                                                             style="margin-top: -5px;">
-                                                            {{ $item['nama'] }}
+                                                            {{ $item->User->first_name . $item->User->last_name }}
                                                         </p>
+
                                                     </div>
                                                     <div class="col-sm d-flex justify-content-end">
-                                                        @for ($i = 0; $i < 5; $i++)
+                                                        @for ($i = 0; $i < $item['rating']; $i++)
                                                             <i class="fas fa-star p-1" style="color: gold;"></i>
                                                         @endfor
                                                     </div>
                                                 </div>
                                                 <p class="card-title card-review-text p-0"
                                                     style="margin-top: -3px; color: #90A3BF;">
-                                                    {{ $item['tanggal'] }}
+                                                    {{ $item['created_at'] }}
                                                 </p>
                                                 <p class="card-title card-review-text p-0" style="margin-top: -3px;">
-                                                    {{ $item['teks'] }}
+                                                    {{ $item['deskripsi'] }}
                                                 </p>
+                                                @if ($item->User->id_user == Auth::guard('web')->user()->id_user)
+                                                    <form action="{{ route('deleteReview', $item['id_review']) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="card-title card-review-text p-0 bg-transparent border-0 text-danger">Delete</button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     @endforeach
@@ -145,87 +157,148 @@
         </div>
     </div>
 
-    <div class="modal fade" id="sewaSekarangModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    @if (Auth::guard('web')->check())
+        <div class="modal fade" id="sewaSekarangModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
-                <div class="modal-header">
-                    <div class="row" style="margin-bottom: -15px;">
-                        <p class="modal-title modal-header-title">{{ $mobil->nama }}</p>
-                        <p class="modal-header-subtitle">{{ $mobil->merek }} - {{ $mobil->transmisi }} -
-                            {{ $mobil->bahan_bakar }} - {{ $mobil->warna }}</p>
+                    <div class="modal-header">
+                        <div class="row" style="margin-bottom: -15px;">
+                            <p class="modal-title modal-header-title">{{ $mobil->nama }}</p>
+                            <p class="modal-header-subtitle">{{ $mobil->merek }} - {{ $mobil->transmisi }} -
+                                {{ $mobil->bahan_bakar }} - {{ $mobil->warna }}</p>
+                        </div>
+                        <input type="hidden" id="hargaSewa" value="{{ $mobil->harga_sewa }}">
+                        <button type="button" class="close custom-close-button" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true"
+                                style="font-size: 24px; color: #333; font-weight: bold; background-color: transparent;">&times;</span>
+                        </button>
                     </div>
-                    <button type="button" class="close custom-close-button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"
-                            style="font-size: 24px; color: #333; font-weight: bold; background-color: transparent;">&times;</span>
-                    </button>
-                </div>
 
-                <div class="modal-body">
-                    <form id="rentalForm">
-                        <div class="form-group mb-3">
-                            <label for="inputName" class="modal-form-label">Name</label>
-                            <input type="text" class="form-control modal-form-placeholder-disabled" id="inputName"
-                                placeholder="{{ Auth::guard('web')->user()->first_name . ' ' . Auth::guard('web')->user()->last_name }}"
-                                disabled>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="pickUpDate" class="modal-form-label">Pick-up Date</label>
-                            <input type="date" class="form-control modal-form-placeholder" id="pickUpDate"
-                                placeholder="16 October 2023">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="dropOffDate" class="modal-form-label">Drop-off Date</label>
-                            <input type="date" class="form-control modal-form-placeholder" id="dropOffDate"
-                                placeholder="16 October 2023">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="pickUpLocation" class="modal-form-label">Pick-up Location</label>
-                            <input type="text" class="form-control modal-form-placeholder" id="pickUpLocation"
-                                placeholder="Pick-up Location">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="dropOffLocation" class="modal-form-label">Drop-off Location</label>
-                            <input type="text" class="form-control modal-form-placeholder" id="dropOffLocation"
-                                placeholder="Drop-off Location">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="assurance" class="modal-form-label">Assurance</label> <br>
-                            <input type="file" class="form-control-file custom-file-input" id="assurance">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div class="row" style="width: 500px;">
-                        <div class="col-6" style="text-align: left; margin-left: -10px;">
-                            <p class="modal-header-subtitle mb-0">Total Price</p>
-                            <p class="modal-header-title mb-0" id="totalPrice">Rp0</p>
-                        </div>
-                        <div class="col-6" style=" padding-left: 50px;">
-                            <button type="submit" class="btn btn-primary mt-2" data-dismiss="modal"
-                                style="background-color: #3D8BFD; border-color: #3D8BFD; font-family: Poppins Medium; margin-right: -50px;"
-                                onclick="resetForm()">
-                                Tambah Penyewaan
-                            </button>
+                    <div class="modal-body">
+                        <form id="rentalForm" action="{{ url('detail/' . str_replace(' ', '_', $mobil->id)) }}"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="inputName" class="modal-form-label">Name</label>
+                                <input type="text" class="form-control modal-form-placeholder-disabled" id="inputName"
+                                    placeholder="{{ Auth::guard('web')->user()->first_name . ' ' . Auth::guard('web')->user()->last_name }}"
+                                    disabled>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="pickUpDate" class="modal-form-label">Pick-up Date</label>
+                                <input type="date" name="tanggal_mulai"
+                                    class="form-control modal-form-placeholder @error('tanggal_mulai') is-invalid @enderror"
+                                    id="pickUpDate" placeholder="16 October 2023">
+                                @error('tanggal_mulai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="dropOffDate" class="modal-form-label">Drop-off Date</label>
+                                <input type="date" name="tanggal_selesai"
+                                    class="form-control modal-form-placeholder @error('tanggal_selesai') is-invalid @enderror"
+                                    id="dropOffDate" placeholder="16 October 2023">
+                                @error('tanggal_selesai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="pickUpLocation" class="modal-form-label">Pick-up Location</label>
+                                <input type="text" name="titik_antar"
+                                    class="form-control modal-form-placeholder @error('titik_antar') is-invalid @enderror"
+                                    id="pickUpLocation" placeholder="Pick-up Location">
+                                @error('titik_antar')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="dropOffLocation" class="modal-form-label">Drop-off Location</label>
+                                <input type="text" name="titik_jemput"
+                                    class="form-control modal-form-placeholder @error('titik_jemput') is-invalid @enderror"
+                                    id="dropOffLocation" placeholder="Drop-off Location">
+                                @error('titik_jemput')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="assurance" class="modal-form-label">Assurance</label> <br>
+                                <input type="file" name="jaminan"
+                                    class="form-control-file custom-file-input @error('jaminan') is-invalid @enderror"
+                                    id="assurance">
+                                @error('jaminan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <input type="hidden" name="total_harga" id="total_harga">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row" style="width: 500px;">
+                            <div class="col-6" style="text-align: left; margin-left: -10px;">
+                                <p class="modal-header-subtitle mb-0">Total Price</p>
+                                <p class="modal-header-title mb-0" id="totalPrice">Rp0</p>
+                            </div>
+                            <div class="col-6" style=" padding-left: 50px;">
+                                <button type="submit" form="rentalForm" id="btnSubmitPenyewaan"
+                                    class="btn btn-primary mt-2"
+                                    style="background-color: #3D8BFD; border-color: #3D8BFD; font-family: Poppins Medium; margin-right: -50px;">
+                                    Tambah Penyewaan
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="modal fade" id="sewaSekarangModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Anda belum login!</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>Kamu ingin menyewa mobil ini? silahkan login terlebih dahulu</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/login" class="btn btn-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
 
     <script>
         function formatPrice(price) {
             return `Rp${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
         }
 
+        const harga = () => parseInt(document.getElementById('hargaSewa').value);
+
         function updateTotalPrice() {
             const pickUpDateInput = document.getElementById('pickUpDate');
             const dropOffDateInput = document.getElementById('dropOffDate');
             const totalPriceElement = document.getElementById(
                 'totalPrice');
-            const dailyPrice = 350000;
+            const hidden = document.getElementById('total_harga');
+
+            const dailyPrice = harga();
 
             const pickUpDate = new Date(pickUpDateInput.value);
             const dropOffDate = new Date(dropOffDateInput.value);
@@ -236,6 +309,7 @@
                 const totalPrice = days * dailyPrice;
 
                 totalPriceElement.textContent = formatPrice(totalPrice);
+                hidden.value = totalPrice;
             } else {
                 totalPriceElement.textContent = 'Rp0';
             }

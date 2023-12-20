@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mobil;
+use App\Models\ReviewRating;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -30,50 +31,8 @@ class MobilController extends Controller
     {
         $replace = str_replace('_', ' ', $id);
         $mobil = Mobil::find($replace);
+        $review = ReviewRating::where('no_plat', $replace)->with(['User', 'Mobil'])->get();
 
-        $review = [
-            // [
-            //     'nama' => 'Alex Stanton',
-            //     'tanggal' => '20 July 2023',
-            //     'gambar' => '',
-            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            // ],
-
-            // [
-            //     'nama' => 'Alex Sutanto',
-            //     'tanggal' => '21 July 2023',
-            //     'gambar' => '',
-            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            // ],
-
-            // [
-            //     'nama' => 'Alex Suharyo',
-            //     'tanggal' => '22 July 2023',
-            //     'gambar' => '',
-            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            // ],
-
-            // [
-            //     'nama' => 'Alex Sukirman',
-            //     'tanggal' => '23 July 2023',
-            //     'gambar' => '',
-            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            // ],
-
-            // [
-            //     'nama' => 'Alex Sukijan',
-            //     'tanggal' => '24 July 2023',
-            //     'gambar' => '',
-            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            // ],
-
-            // [
-            //     'nama' => 'Alex Supriman',
-            //     'tanggal' => '25 July 2023',
-            //     'gambar' => '',
-            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            // ],
-        ];
         return view('home.detailCatalog', ['mobil' => $mobil, 'review' => $review]);
     }
 

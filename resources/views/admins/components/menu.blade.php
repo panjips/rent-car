@@ -17,25 +17,25 @@
         </a>
         <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ url('admin/menunggu-konfirmasi') }}" class="nav-link ">
+                <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/menunggu-konfirmasi') }}" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tunggu Konfirmasi</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/berlangsung') }}" class="nav-link">
+                <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/berlangsung') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Berlangsung</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/bermasalah') }}" class="nav-link">
+                <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/bermasalah') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Bermasalah</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/selesai') }}" class="nav-link">
+                <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/selesai') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Selesai</p>
                 </a>
