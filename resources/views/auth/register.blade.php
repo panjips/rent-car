@@ -39,32 +39,31 @@
                         <p>Silahkan buat akun untuk mengakses layanan kami</p>
                     </div>
                 </div>
-                <form class="p-4 mx-5">
+
+                <form class="p-4 mx-5" method="POST" action="{{ route('actionRegister') }}">
+                    @csrf
                     <div class="mb-3 text-center">
                         <h3 class="font-weight-bolder">Register</h3>
                     </div>
                     <div class="mb-3 row">
                         <div class="col-6">
-                            <label for="nama-depan" class="form-label" style="color: grey">Nama Depan</label>
-                            <input type="text" name="nama-depan" class="form-control" id="nama-depan"
+                            <label for="first_name" class="form-label" style="color: grey">Nama Depan</label>
+                            <input type="text" name="first_name" class="form-control" id="first_name"
                                 style="color: grey">
                         </div>
                         <div class="col-6">
-                            <label for="nama-akhir" class="form-label" style="color: grey">Nama Akhir</label>
-                            <input type="text" name="nama-akhir" class="form-control" id="nama-akhir"
-                                style="color: grey">
+                            <label for="last_name" class="form-label" style="color: grey">Nama Akhir</label>
+                            <input type="text" name="last_name" class="form-control" id="last_name" style="color: grey">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <div class="col-4">
-                            <label for="jenis-kelamin" class="form-label" style="color: grey">Jenis Kelamin</label>
-                            <input type="text" name="jenis-kelamin" class="form-control" id="jenis-kelamin"
-                                style="color: grey">
+                            <label for="gender" class="form-label" style="color: grey">Jenis Kelamin</label>
+                            <input type="text" name="gender" class="form-control" id="gender" style="color: grey">
                         </div>
                         <div class="col-8">
-                            <label for="tanggal-lahir" class="form-label" style="color: grey">Tanggal Lahir</label>
-                            <input type="date" name="tanggal-lahir" class="form-control" id="tanggal-lahir"
-                                style="color: grey">
+                            <label for="birthday" class="form-label" style="color: grey">Tanggal Lahir</label>
+                            <input type="date" name="birthday" class="form-control" id="birthday" style="color: grey">
                         </div>
                     </div>
                     <div class="mb-3">
@@ -90,6 +89,13 @@
                             </div>
                         </div>
                     </div>
+
+                    @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+
                     <button type="submit" class="mt-5 btn w-100 text-white"
                         style="background-color: #8925fa; font-weight: 600">Register</button>
                     <p class="text-center text-dark mt-3 mb-0" style="font-weight: 400">Already have an account?<span> <a
@@ -122,7 +128,7 @@
         icon.addEventListener("click", function() {
             if (icon.classList.contains("fa-eye")) {
                 icon.setAttribute("class", "fa fa-eye-slash")
-            }else {
+            } else {
                 icon.setAttribute("class", "fa fa-eye")
             }
 

@@ -39,4 +39,10 @@ class AdminController extends Controller
             return view("admins.index-admin", compact('admin'));
         }
     }
+
+    public function actionLogout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect('/');
+    }
 }

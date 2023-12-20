@@ -53,7 +53,8 @@
     </li>
 
     <li class="nav-item">
-        <a href="{{ url('admin/user') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
+        <a href="{{ url('admin/' . Auth::guard('admin')->id() . '/user') }}"
+            class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
             <i class="nav-icon fa-solid fa-user"></i>
             <p> User</p>
         </a>

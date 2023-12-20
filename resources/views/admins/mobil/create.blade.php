@@ -120,6 +120,19 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="modal_keterangan" class="fw-bold fs-6 form-label">Keterangan</label>
+
+                                    <textarea name="keterangan" id="modal_keterangan" cols="15" rows="4"
+                                        class="form-control @error('id') is-invalid @enderror"></textarea>
+                                    @error('gambar')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </form>
                         <div class="modal-footer pt-4 gap-3">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -20,6 +20,63 @@ class MobilController extends Controller
         return view('admins.mobil.index', ['mobil' => $mobil]);
     }
 
+    public function showCatalog()
+    {
+        $catalog = Mobil::where('status', '=', 'Tersedia')->get();
+        return view('home.catalog', compact('catalog'));
+    }
+
+    public function showDetail(string $id)
+    {
+        $replace = str_replace('_', ' ', $id);
+        $mobil = Mobil::find($replace);
+
+        $review = [
+            // [
+            //     'nama' => 'Alex Stanton',
+            //     'tanggal' => '20 July 2023',
+            //     'gambar' => '',
+            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            // ],
+
+            // [
+            //     'nama' => 'Alex Sutanto',
+            //     'tanggal' => '21 July 2023',
+            //     'gambar' => '',
+            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            // ],
+
+            // [
+            //     'nama' => 'Alex Suharyo',
+            //     'tanggal' => '22 July 2023',
+            //     'gambar' => '',
+            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            // ],
+
+            // [
+            //     'nama' => 'Alex Sukirman',
+            //     'tanggal' => '23 July 2023',
+            //     'gambar' => '',
+            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            // ],
+
+            // [
+            //     'nama' => 'Alex Sukijan',
+            //     'tanggal' => '24 July 2023',
+            //     'gambar' => '',
+            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            // ],
+
+            // [
+            //     'nama' => 'Alex Supriman',
+            //     'tanggal' => '25 July 2023',
+            //     'gambar' => '',
+            //     'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
+            // ],
+        ];
+        return view('home.detailCatalog', ['mobil' => $mobil, 'review' => $review]);
+    }
+
     public function create(Request $request)
     {
         return view('admins.mobil.create');
@@ -32,6 +89,7 @@ class MobilController extends Controller
     {
         $this->validate($request, [
             'id' => 'required',
+            'keterangan' => 'required',
             'gambar' => 'required',
             'merek' => 'required',
             'nama' => 'required',
@@ -89,6 +147,7 @@ class MobilController extends Controller
             Storage::disk('local')->put('public/' . $storeToPublic, file_get_contents($image));
             $mobil->update([
                 'id' => $request->id,
+                'keterangan' => $request->keterangan,
                 'gambar' => $storeToPublic,
                 'merek' => $request->merek,
                 'nama' => $request->nama,
@@ -101,6 +160,7 @@ class MobilController extends Controller
         } else {
             $mobil->update([
                 'id' => $request->id,
+                'keterangan' => $request->keterangan,
                 'gambar' => $mobil->gambar,
                 'merek' => $request->merek,
                 'nama' => $request->nama,

@@ -90,7 +90,7 @@
         </nav>
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="{{ request()->is('admin') || request()->is('admin/*') ? url('admin') : url('dashboard') }}"
+            <a href="{{ request()->is('admin') || request()->is('admin/*') ? url('/') : url('/') }}"
                 class="brand-link text-decoration-none">
                 <img src=" {{ asset('img/logo.png') }}" alt="VR Logo" class="brand-image img-circle"
                     style="opacity: .8">
@@ -100,7 +100,15 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                        @if (request()->is('user') || request()->is('user/*'))
+                            <img src="{{ Auth::guard('web')->user()->gambar == null ? asset('img/user2-160x160.jpg') : asset('storage/profile/' . Auth::guard('web')->user()->gambar) }}"
+                                class="img-circle elevation-2" alt="User Image">
+                        @endif
+
+                        @if (request()->is('admin/*') || request()->is('admin'))
+                            <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                                alt="Admin Image">
+                        @endif
                     </div>
                     @if (request()->is('admin/*') || request()->is('admin'))
                         <div class="info">
@@ -110,7 +118,8 @@
                     @endif
                     @if (request()->is('user') || request()->is('user/*'))
                         <div class="info">
-                            <a href="{{ url('user/profile') }}" class="d-block text-decoration-none">Nama user</a>
+                            <a href="{{ url('user/profile') }}"
+                                class="d-block text-decoration-none">{{ Auth::guard('web')->user()->first_name . ' ' . Auth::user()->last_name }}</a>
                         </div>
                     @endif
 
@@ -141,9 +150,16 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="{{ url('/') }}">
-                        <button type="button" class="btn btn-danger">Logout</button>
-                    </a>
+
+                    @if (Auth::guard('web')->check())
+                        <a href="{{ url('/logout_user') }}" type="button" class="btn btn-danger">
+                            Logout
+                        </a>
+                    @else
+                        <a href="{{ url('/logout_admin') }}">
+                            <button type="button" class="btn btn-danger">Logout</button>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

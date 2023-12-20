@@ -41,9 +41,9 @@
                             <div class="row mt-2">
                                 <div class="col-6">
                                     <label for="modal_tambah_nama" class="fw-bold fs-6 form-label">Nama</label>
-                                    <input type="text" class="form form-control clear @error('id') is-invalid @enderror"
-                                        name="nama" id="modal_tambah_nama" placeholder=""
-                                        value="{{ old('nama', $mobil->nama) }}">
+                                    <input type="text"
+                                        class="form form-control clear @error('nama') is-invalid @enderror" name="nama"
+                                        id="modal_tambah_nama" placeholder="" value="{{ old('nama', $mobil->nama) }}">
                                     @error('nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -52,7 +52,8 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="modal_tambah_transmisi" class="fw-bold fs-6 form-label">Transmisi</label>
-                                    <input type="text" class="form form-control clear @error('id') is-invalid @enderror"
+                                    <input type="text"
+                                        class="form form-control clear @error('transmisi') is-invalid @enderror"
                                         name="transmisi" id="modal_tambah_transmisi" placeholder=""
                                         value="{{ old('transmisi', $mobil->transmisi) }}">
                                     @error('transmisi')
@@ -66,7 +67,8 @@
                                 <div class="col-6">
                                     <label for="modal_tambah_bahan_bakar" class="fw-bold fs-6 form-label">Bahan
                                         Bakar</label>
-                                    <input type="text" class="form form-control clear @error('id') is-invalid @enderror"
+                                    <input type="text"
+                                        class="form form-control clear @error('bahan_bakar') is-invalid @enderror"
                                         name="bahan_bakar" id="modal_tambah_bahan_bakar" placeholder=""
                                         value="{{ old('bahan_bakar', $mobil->bahan_bakar) }}">
                                     @error('bahan_bakar')
@@ -77,9 +79,9 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="modal_tambah_warna" class="fw-bold fs-6 form-label">Warna</label>
-                                    <input type="text" class="form form-control clear @error('id') is-invalid @enderror"
-                                        name="warna" id="modal_tambah_warna" placeholder=""
-                                        value="{{ old('warna', $mobil->warna) }}">
+                                    <input type="text"
+                                        class="form form-control clear @error('warna') is-invalid @enderror" name="warna"
+                                        id="modal_tambah_warna" placeholder="" value="{{ old('warna', $mobil->warna) }}">
                                     @error('warna')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -91,7 +93,8 @@
                                 <div class="col-6">
                                     <label for="modal_tambah_harga_sewa" class="fw-bold fs-6 form-label">Harga
                                         Sewa</label>
-                                    <input type="text" class="form form-control clear @error('id') is-invalid @enderror"
+                                    <input type="text"
+                                        class="form form-control clear @error('harga_sewa') is-invalid @enderror"
                                         name="harga_sewa" id="modal_tambah_harga_sewa" placeholder=""
                                         value="{{ old('harga_sewa', $mobil->harga_sewa) }}">
                                     @error('harga_sewa')
@@ -102,7 +105,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="modal_tambah_status_mobil" class="fw-bold fs-6 form-label">Status</label>
-                                    <select class="form-select @error('id') is-invalid @enderror"
+                                    <select class="form-select @error('status') is-invalid @enderror"
                                         id="modal_tambah_status_mobil" name="status"
                                         value="{{ old('status', $mobil->status) }}">
                                         <option selected>{{ $mobil->status }}</option>
@@ -123,10 +126,23 @@
                                 <div class="col">
                                     <label for="modal_tambah_harga_sewa" class="fw-bold fs-6 form-label">Gambar
                                         Mobil</label>
-                                    <input type="file" class="form form-control clear @error('id') is-invalid @enderror"
+                                    <input type="file"
+                                        class="form form-control clear @error('gambar') is-invalid @enderror"
                                         name="gambar" id="modal_tambah_harga_sewa" placeholder=""
                                         value="{{ old('gambar', $mobil->gambar) }}">
                                     @error('gambar')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="modal_keterangan" class="fw-bold fs-6 form-label">Keterangan</label>
+                                    <textarea name="keterangan" id="modal_keterangan" cols="15" rows="4"
+                                        class="form-control @error('keterangan') is-invalid @enderror">{{ old('gambar', $mobil->keterangan) }}</textarea>
+                                    @error('keterangan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

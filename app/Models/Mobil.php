@@ -14,6 +14,7 @@ class Mobil extends Model
     public $incrementing = false;
     protected $fillable = [
         'id',
+        'keterangan',
         'gambar',
         'merek',
         'nama',

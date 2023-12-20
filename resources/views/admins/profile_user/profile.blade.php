@@ -33,7 +33,10 @@
                 <div class="d-flex gap-4">
                     <div class="">
                         <p>User</p>
-                        <i class="fa fa-user fa-3x"></i>
+                        <img class="rounded"
+                            src="{{ Auth::guard('web')->user()->gambar == null ? asset('img/user2-160x160.jpg') : asset('storage/profile/' . Auth::guard('web')->user()->gambar) }}"
+                            alt="iamge_profile" height="200px" width="200px">
+                        {{-- <i class="fa fa-user fa-3x"></i> --}}
                     </div>
                     <div class="col-md-8 ml-5 mt-4">
                         <form action="">
@@ -43,7 +46,8 @@
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" id="nama" name="nama" class="form-control ml-lg-5"
-                                        value="Yosefin Utami Yolanda Bosca" disabled>
+                                        value="{{ Auth::guard('web')->user()->first_name . ' ' . Auth::user()->last_name }}"
+                                        disabled>
                                 </div>
                             </div>
 
@@ -53,7 +57,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <input type="email" id="email" name="email" class="form-control ml-lg-5"
-                                        value="yosefinutami123@gmail.com" disabled>
+                                        value="{{ Auth::guard('web')->user()->email }}" disabled>
                                 </div>
                             </div>
 
@@ -63,8 +67,13 @@
                                 </div>
                                 <div class="col-md-9">
                                     <select id="jenis_kelamin" name="jenis_kelamin" class="form-select ml-lg-5" disabled>
-                                        <option value="men">Laki-laki</option>
-                                        <option value="women" selected>Perempuan</option>
+                                        @if (Auth::guard('web')->user()->gender == 'Perempuan')
+                                            <option value="men">Laki-laki</option>
+                                            <option value="women" selected>Perempuan</option>
+                                        @else
+                                            <option value="men" selected>Laki-laki</option>
+                                            <option value="women">Perempuan</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -75,32 +84,17 @@
                                 </div>
                                 <div class="col-md-9">
                                     <input type="date" name="tanggal_lahir" id="tanggal_lahir"
-                                        class="form-control ml-lg-5" disabled>
-                                </div>
-                            </div>
-
-                            <div class="row align-items-center mb-3 ">
-                                <div class="col-md-3">
-                                    <p class="form-label text-decoration-none">Password</p>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" id="password" name="password" class="form-control ml-lg-5"
+                                        class="form-control ml-lg-5" value="{{ Auth::guard('web')->user()->birthday }}"
                                         disabled>
-                                    <div class="input-group-append">
-                                        <button class="btn" type="button" id="showPasswordButton">
-                                            <i class="fa fa-eye" id="icon" style="color: grey"></i>
-                                        </button>
-                                    </div>
-
                                 </div>
                             </div>
 
                             <div class="row align-items-center mb-3 ">
                                 <div class="col-md-3">
-                                    <button class="btn btn-outline-primary rounded" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#modalUpdateProfile">
+                                    <a href="{{ url('/user/profile/' . Auth::guard('web')->user()->id_user) }}"
+                                        class="btn btn-outline-primary rounded">
                                         Edit User
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </form>

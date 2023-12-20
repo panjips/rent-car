@@ -40,7 +40,7 @@
                     </div>
 
                 </div>
-                <form class="p-4 mx-5" action="{{ url('login') }}" method="POST">
+                <form class="p-4 mx-5" action="{{ route('actionLogin') }}" method="POST">
                     @csrf
                     <div class="mb-3 text-center">
                         <h3 class="font-weight-bolder">Login</h3>
@@ -65,6 +65,9 @@
                     <a href="" class="text-decoration-none">
                         <p class="d-flex justify-content-end" style="color: #8925fa;font-size: 14px">Forgot password</p>
                     </a>
+                    @if (session('error'))
+                        <div class="alert alert-danger"><b>Oops!</b> {{ session('error') }}</div>
+                    @endif
                     <button type="submit" class="mt-5 btn w-100 text-white"
                         style="background-color: #8925fa; font-weight: 600">Login</button>
                     <p class="text-center text-dark mt-3 mb-0" style="font-weight: 400">Doesn't have any account?<span> <a

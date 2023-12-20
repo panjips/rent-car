@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\User\DashboardUserController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,128 +43,23 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/catalog', function () {
-    return view('home/catalog', [
-        'catalog' => [
-            [
-                'jenis' => 'Alphard',
-                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
-                'gambar' => '',
-                'harga_sewa' => 350000,
-            ],
+Route::get('/catalog', [MobilController::class, 'showCatalog']);
+Route::get('/detail/{id}', [MobilController::class, 'showDetail']);
 
-            [
-                'jenis' => 'Alphard',
-                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
-                'gambar' => '',
-                'harga_sewa' => 350000,
-            ],
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('actionLogin', [LoginController::class, 'actionLogin'])->name('actionLogin');
+Route::get('/logout_user', [LoginController::class, 'actionLogout']);
 
-            [
-                'jenis' => 'Alphard',
-                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
-                'gambar' => '',
-                'harga_sewa' => 350000,
-            ],
+Route::get('/register', [RegisterController::class, 'register']);
+Route::post('register/action', [RegisterController::class, 'actionRegister'])->name('actionRegister');
+Route::get('register/verify/{verif_key}', [RegisterController::class, 'verify'])->name('verify');
 
-            [
-                'jenis' => 'Alphard',
-                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
-                'gambar' => '',
-                'harga_sewa' => 350000,
-            ],
-
-            [
-                'jenis' => 'Alphard',
-                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
-                'gambar' => '',
-                'harga_sewa' => 350000,
-            ],
-
-            [
-                'jenis' => 'Alphard',
-                'keterangan' => 'Rasakan kenyamanan, keanggunan, dan kemewahan dalam setiap perjalanan Anda. Jadikan momen Anda istimewa dengan Alphard kami',
-                'gambar' => '',
-                'harga_sewa' => 350000,
-            ],
-        ],
-    ]);
-});
-
-Route::get('/detail', function () {
-    return view('home/detailCatalog', [
-        'review' => [
-            [
-                'nama' => 'Alex Stanton',
-                'tanggal' => '20 July 2023',
-                'gambar' => '',
-                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            ],
-
-            [
-                'nama' => 'Alex Sutanto',
-                'tanggal' => '21 July 2023',
-                'gambar' => '',
-                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            ],
-
-            [
-                'nama' => 'Alex Suharyo',
-                'tanggal' => '22 July 2023',
-                'gambar' => '',
-                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            ],
-
-            [
-                'nama' => 'Alex Sukirman',
-                'tanggal' => '23 July 2023',
-                'gambar' => '',
-                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            ],
-
-            [
-                'nama' => 'Alex Sukijan',
-                'tanggal' => '24 July 2023',
-                'gambar' => '',
-                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            ],
-
-            [
-                'nama' => 'Alex Supriman',
-                'tanggal' => '25 July 2023',
-                'gambar' => '',
-                'teks' => 'Harga sewa kendaraan sangat kompetitif, terutama jika dibandingkan dengan penyedia layanan lain di area ini. Saya merasa bahwa saya mendapatkan nilai yang luar biasa untuk uang yang saya bayar.',
-            ],
-        ],
-    ]);
-});
-
-Route::get('/login', function () {
-    return view('auth.login');
-});
-
-Route::post('/login', function (Illuminate\Http\Request $request) {
-    $username = $request->input('username');
-    $password = $request->input('password');
-
-    if ($username == 'admin' || $password == 'admin') {
-        return redirect('admin');
-    } else {
-        return redirect('user');
-    }
-});
-
-Route::get('/register', function () {
-    return view('auth.register');
-});
-
-Route::get('/user', function () {
-    return view('admins.index-user');
-});
-
+Route::get('/user', [DashboardUserController::class, 'index']);
 Route::get('/user/profile', function () {
-    return view('admins.profile');
+    return view('admins.profile_user.profile');
 });
+Route::get('/user/profile/{id}', [UserController::class, 'edit']);
+Route::put('/user/profile/{id}', [UserController::class, 'actionUserUpdate']);
 
 Route::get('/user/riwayat-penyewaan', function () {
     $histories = [
@@ -199,112 +98,23 @@ Route::get('/user/riwayat-penyewaan', function () {
 });
 
 Route::get('/admin/login', [AdminController::class, 'viewLogin']);
-
 Route::post('/admin/login', [AdminController::class, 'login']);
+Route::get('/logout_admin', [AdminController::class, 'actionLogout']);
 
 Route::get('/admin/{id}', [AdminController::class, 'show']);
-
 Route::get('/admin/{id}/profile', [AdminController::class, 'show']);
 
 Route::get('/admin/{id}/mobil/create', [MobilController::class, 'create']);
-
 Route::post('/admin/{id}/mobil/create', [MobilController::class, 'store']);
-
 Route::get('/admin/{id}/mobil/update/{id_mobil}', [MobilController::class, 'edit']);
-
 Route::put('/admin/{id}/mobil/update/{id_mobil}', [MobilController::class, 'update']);
-
 Route::delete('/admin/{id}/mobil/delete/{id_mobil}', [MobilController::class, 'destroy']);
-
 Route::get('/admin/{id}/mobil', [MobilController::class, 'index']);
 
-Route::get('/admin/user', function () {
-    return view('admins/user', [
-        'user' => [
-            [
-                'nama_depan' => 'Simen',
-                'nama_belakang' => 'Sumbawa',
-                'email' => 'simencihuy@gmail.com',
-                'username' => 'simencihuy',
-                'no_telp' => '08253634634',
-                'tanggal_lahir' => '17/08/2003',
-                'jenis_kelamin' => 'Perempuan',
-            ],
-            [
-                'nama_depan' => 'Aria',
-                'nama_belakang' => 'Pratama',
-                'email' => 'ariapratama@gmail.com',
-                'username' => 'ariapratama',
-                'no_telp' => '08123456789',
-                'tanggal_lahir' => '10/05/1995',
-                'jenis_kelamin' => 'Laki-Laki',
-            ],
-            [
-                'nama_depan' => 'Dewi',
-                'nama_belakang' => 'Sari',
-                'email' => 'dewisari@gmail.com',
-                'username' => 'dewisari',
-                'no_telp' => '08567891234',
-                'tanggal_lahir' => '22/11/1988',
-                'jenis_kelamin' => 'Perempuan',
-            ],
-            [
-                'nama_depan' => 'Rian',
-                'nama_belakang' => 'Wijaya',
-                'email' => 'rianwijaya@gmail.com',
-                'username' => 'rianwijaya',
-                'no_telp' => '08765432100',
-                'tanggal_lahir' => '03/04/2000',
-                'jenis_kelamin' => 'Laki-Laki',
-            ],
-            [
-                'nama_depan' => 'Dina',
-                'nama_belakang' => 'Susanti',
-                'email' => 'dinasusanti@gmail.com',
-                'username' => 'dinasusanti',
-                'no_telp' => '08234567890',
-                'tanggal_lahir' => '15/09/1992',
-                'jenis_kelamin' => 'Perempuan',
-            ],
-            [
-                'nama_depan' => 'Siti',
-                'nama_belakang' => 'Rahmawati',
-                'email' => 'siti@gmail.com',
-                'username' => 'siti123',
-                'no_telp' => '08543210987',
-                'tanggal_lahir' => '20/06/1993',
-                'jenis_kelamin' => 'Perempuan',
-            ],
-            [
-                'nama_depan' => 'Rizky',
-                'nama_belakang' => 'Perdana',
-                'email' => 'rizkyperdana@gmail.com',
-                'username' => 'rizkyperdana',
-                'no_telp' => '08123456789',
-                'tanggal_lahir' => '08/12/1987',
-                'jenis_kelamin' => 'Laki-Laki',
-            ],
-            [
-                'nama_depan' => 'Wahyu',
-                'nama_belakang' => 'Nugroho',
-                'email' => 'wahyunugroho@gmail.com',
-                'username' => 'wahyunugroho',
-                'no_telp' => '08987654321',
-                'tanggal_lahir' => '12/02/1996',
-                'jenis_kelamin' => 'Laki-Laki',
-            ],
-            [
-                'nama_depan' => 'Lia',
-                'nama_belakang' => 'Purnama',
-                'email' => 'liapurnama@gmail.com',
-                'username' => 'liapurnama',
-                'no_telp' => '08321098765',
-                'tanggal_lahir' => '05/07/1990',
-                'jenis_kelamin' => 'Perempuan',
-            ],
-        ],
-    ]);
-});
+Route::get('/admin/{id}/user', [UserController::class, 'index']);
+Route::get('/admin/{id}/user/update/{id_user}', [UserController::class, 'update']);
+Route::put('/admin/{id}/user/update/{id_user}', [UserController::class, 'actionAdminUpdate']);
+Route::delete('/admin/{id}/user/delete/{id_user}', [UserController::class, 'destroy']);
 
 Route::get('/admin/menunggu-konfirmasi', function () {
     return view('admins/menungguKonfirmasi', [
