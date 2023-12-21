@@ -13,12 +13,12 @@
                         </div>
                         <div class="col-md animate__animated animate__fadeInRight">
                             <div class="card card-testimonial border"
-                                style="width: auto; margin-bottom: 50px; background-color: #FFFFFF;">
+                                style="width: auto; height:400px; margin-bottom: 50px; background-color: #FFFFFF;">
                                 <div class="card-body">
                                     <p class="card-title card-testimonial-title p-2">
                                         {{ $mobil->nama }}
                                     </p>
-                                    <p class="card-title card-testimonial-text p-2" style="color: #6C757D;">
+                                    <p class="card-title card-testimonial-text p-2" style="color: #6C757D; height:150px">
                                         {{ $mobil->keterangan }}
                                     </p>
                                     <div class="row">
@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="col-sm d-flex justify-content-end">
                                             <a class="btn btn-primary mt-2 align-items-center d-flex" href="#"
-                                                data-toggle="modal" data-target="#sewaSekarangModal" id="sewaMobil"
+                                                data-toggle="modal" data-target="#sewaSekarangModal"
                                                 style="background-color: #3D8BFD; border-color: #3D8BFD; font-family: Poppins Medium;">
                                                 Sewa Sekarang
                                             </a>

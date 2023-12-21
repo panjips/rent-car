@@ -15,10 +15,10 @@
                             <div class="col-md animate__animated animate__fadeInUp">
                                 <a href={{ url('detail/' . str_replace(' ', '_', $item['id'])) }} class="card-link">
                                     <div class="card card-testimonial border card-hover"
-                                        style="width: 380px; margin-bottom: 50px; background-color: #FFFFFF;">
-                                        <div class="container">
+                                        style="width: 380px; height: 500px; margin-bottom: 50px; background-color: #FFFFFF;">
+                                        <div class="container" style="width: 380px; height: 250px; padding: 0px">
                                             <img class="card-img-top" src="{{ asset('storage/' . $item['gambar']) }}"
-                                                alt="alphard">
+                                                alt="{{ $item['nama'] }}" style="width: 380px; height: 250px;">
                                         </div>
                                         <div class="card-body">
                                             <p class="card-title card-testimonial-title p-2">
