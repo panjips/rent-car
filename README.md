@@ -4,9 +4,9 @@
 
 ### Anggota Kelompok:
 
-- Yosefin Utami Yolanda Bosco (210712345) - user, dashboard
-- Nama Kedua (210767890) - penyewaan, landing page, catalog
-- Nama Ketiga (160700001) - admin, crud data master, pengelolaan penyewaan, pengelolaan user
+- Yosefin Utami Yolanda Bosco (210711202) - user (including ui)
+- Ignasius Axel Cokrodiharjo (210711214) - penyewaan, landing page, catalog (including ui)
+- I Made Panji Pusaka Suryeswara (210711397) - admin, crud data master, pengelolaan penyewaan, pengelolaan user (including ui)
 
 ## Username & Password Login:
 
