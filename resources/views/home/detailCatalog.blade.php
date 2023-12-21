@@ -8,7 +8,8 @@
                 <div class="container" style="text-align: left;">
                     <div class="row">
                         <div class="col-md mr animate__animated animate__fadeInLeft">
-                            <img src="{{ asset('img/avanza.jpeg') }}" alt="Foto Mobil" class="img-fluid rounded">
+                            <img src="{{ asset('storage/' . $mobil->gambar) }}" alt="Foto Mobil" height="720" width="1080"
+                                class="img-fluid rounded">
                         </div>
                         <div class="col-md animate__animated animate__fadeInRight">
                             <div class="card card-testimonial border"

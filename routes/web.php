@@ -94,4 +94,4 @@ Route::get('/admin/{id}/pengembalian/{id_sewa}', [RiwayatPenyewaan::class, 'peng
 Route::get('/admin/{id}/selesai', [RiwayatPenyewaan::class, 'selesai']);
 
 Route::get('/admin/{id}/{status}/{id_sewa}', [RiwayatPenyewaan::class, 'changeStatus'])->name('updateStatus');
-Route::post('/user/riwayat-penyewaan/{id}', [ReviewRatingController::class, 'store'])->name('addReview');
+Route::post('/user/riwayat-penyewaan/{no_plat}', [ReviewRatingController::class, 'store'])->name('addReview');

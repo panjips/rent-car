@@ -71,8 +71,7 @@ class MobilController extends Controller
         Mobil::create($datas);
 
         $mobil = Mobil::get();
-        // print_r($mobil);
-
+        
         try {
             return view('admins.mobil.index', ['mobil' => $mobil]);
         } catch (Exception $e) {

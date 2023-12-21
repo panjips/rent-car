@@ -26,7 +26,7 @@
                                             <td class="align-middle">{{ $history['id_sewa'] }}</td>
                                             <td class="align-middle">{{ $history['tanggal_mulai'] }}</td>
                                             <td class="align-middle">{{ $history['tanggal_selesai'] }}</td>
-                                            <td class="align-middle">{{ $history->Mobil->nama }}</td>
+                                            <td class="align-middle">{{ $history->Mobil->id }}</td>
                                             <td class="align-middle">
                                                 @if ($history['status'] == 'Menunggu Konfirmasi')
                                                     <div class="btn btn-warning">
@@ -56,7 +56,8 @@
                                                     <p style="color: #5b585e">Add</p>
                                                 @else
                                                     <button class="btn" type="button" id="addReview"
-                                                        data-bs-toggle="modal" data-bs-target="#modalHistory">
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalHistory{{ $loop->iteration }}">
                                                         <p style="color: #8925fa">Add</p>
                                                     </button>
                                                 @endif
@@ -64,7 +65,7 @@
                                         </form>
                                     </tr>
                                     <!-- Modal Tambah Review -->
-                                    <div class="modal fade" id="modalHistory" tabindex="-1"
+                                    <div class="modal fade" id="modalHistory{{ $loop->iteration }}" tabindex="-1"
                                         aria-labelledby="modalHistoryLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered">
                                             <div class="modal-content">
@@ -74,8 +75,8 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="POST" id="formReview"
-                                                        action="{{ route('addReview', str_replace(' ', '_', $history->Mobil->id)) }}">
+                                                    <form method="POST" id="formReview{{ $loop->iteration }}"
+                                                        action="{{ route('addReview', str_replace(' ', '_', $history['no_plat'])) }}">
                                                         @csrf
                                                         <div class="row">
                                                             <div class="col-12 mb-3">
@@ -112,7 +113,7 @@
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary"
-                                                        form="formReview">Save</button>
+                                                        form="formReview{{ $loop->iteration }}">Save</button>
                                                 </div>
                                             </div>
                                         </div>
