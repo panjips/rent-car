@@ -126,14 +126,16 @@
                                                 <p class="card-title card-review-text p-0" style="margin-top: -3px;">
                                                     {{ $item['deskripsi'] }}
                                                 </p>
-                                                @if ($item->User->id_user == Auth::guard('web')->user()->id_user)
-                                                    <form action="{{ route('deleteReview', $item['id_review']) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="card-title card-review-text p-0 bg-transparent border-0 text-danger">Delete</button>
-                                                    </form>
+                                                @if (Auth::guard('web')->check())
+                                                    @if ($item->User->id_user == Auth::guard('web')->user()->id_user)
+                                                        <form action="{{ route('deleteReview', $item['id_review']) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="card-title card-review-text p-0 bg-transparent border-0 text-danger">Delete</button>
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>
