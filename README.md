@@ -1,6 +1,6 @@
 # UAS Pemrograman Web Gasal 2023/2024
 
-## Kelas E Kelompok 18
+## Kelas C Kelompok 3
 
 ### Anggota Kelompok:
 
