@@ -1,6 +1,7 @@
 # UAS Pemrograman Web Gasal 2023/2024
 
 ## Kelas C Kelompok 3
+Project ini dibuat untuk memenuhi atau menyelesaikan Mata Kuliah Pemrograman Web dengan tema penyewaan kendaraan. Project ini bertujuan untuk membangun sebuah website yang dapat digunakan untuk menyewa berbagai jenis kendaraan, seperti mobil, motor, dan sepeda. Website ini diharapkan dapat memudahkan pengguna dalam menemukan dan menyewa kendaraan yang mereka butuhkan. Teknologi yang digunakan pada website ini adalah HTML, CSS, PHP, Laravel.
 
 ### Anggota Kelompok:
 
